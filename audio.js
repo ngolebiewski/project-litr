@@ -108,3 +108,69 @@ export async function startArpeggiator() {
   currentSource.connect(audioCtx.destination);
   currentSource.start(0);
 }
+
+// Pre-generate a 1-second noise buffer to reuse for all sound effects
+let noiseBuffer = null;
+
+function getNoiseBuffer(ctx) {
+  if (noiseBuffer) return noiseBuffer;
+  const bufferSize = ctx.sampleRate;
+  noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const output = noiseBuffer.getChannelData(0);
+
+  // 15-bit Game Boy style pseudo-random LFSR noise generation
+  let lfsr = 0x7fff;
+  for (let i = 0; i < bufferSize; i++) {
+    const bit = ((lfsr >> 0) ^ (lfsr >> 1)) & 1;
+    lfsr = (lfsr >> 1) | (bit << 14);
+    output[i] = (lfsr & 1) ? 1 : -1;
+  }
+  return noiseBuffer;
+}
+
+/**
+ * Play a retro Game Boy noise sound effect.
+ * @param {Object} options
+ * @param {number} [options.duration=0.2] - Duration in seconds
+ * @param {number} [options.frequency=1.0] - Pitch multiplier (0.1 = low rumble, 3.0 = high sizzle)
+ * @param {number} [options.pitchSweep=0.0] - Final pitch relative to start (e.g. -0.5 drops pitch over time)
+ * @param {number} [options.volume=0.2] - Peak volume level (0.0 to 1.0)
+ */
+export function playNoise({
+  duration = 0.2,
+  frequency = 1.0,
+  pitchSweep = 0.0,
+  volume = 0.2
+} = {}) {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  const buffer = getNoiseBuffer(audioCtx);
+  const source = audioCtx.createBufferSource();
+  const gain = audioCtx.gain || audioCtx.createGain();
+
+  source.buffer = buffer;
+
+  const startTime = audioCtx.currentTime;
+  const endTime = startTime + duration;
+
+  // Set initial frequency (playbackRate changes the pitch/grain of the noise)
+  source.playbackRate.setValueAtTime(frequency, startTime);
+
+  // Apply pitch sweep if specified (lasers, falling pitch)
+  if (pitchSweep !== 0) {
+    const targetFreq = Math.max(0.01, frequency + pitchSweep);
+    source.playbackRate.linearRampToValueAtTime(targetFreq, endTime);
+  }
+
+  // Percussive decay volume envelope
+  gain.gain.setValueAtTime(volume, startTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, endTime);
+
+  source.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  source.start(startTime);
+  source.stop(endTime);
+}

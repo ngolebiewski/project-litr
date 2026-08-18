@@ -1,4 +1,4 @@
-import { bakeAudio, startArpeggiator } from './audio.js';
+import { bakeAudio, startArpeggiator, playNoise } from './audio.js';
 
 // 1. Pre-bake audio into memory as soon as the file loads
 bakeAudio();
@@ -40,3 +40,26 @@ ctx.fillText("Project Litr", 50, 175);
 // Browser requires user interaction before Web Audio plays
 window.addEventListener('click', () => startArpeggiator(), { once: true });
 window.addEventListener('keydown', () => startArpeggiator(), { once: true });
+
+// Trigger preset sounds on keypress:
+window.addEventListener('keydown', (e) => {
+  // 1. Explosion (Low frequency, long duration)
+  if (e.key === '1') {
+    playNoise({ duration: 0.5, frequency: 0.2, pitchSweep: -0.15, volume: 0.3 });
+  }
+
+  // 2. Hi-Hat / Snare (High pitch, very short)
+  if (e.key === '2') {
+    playNoise({ duration: 0.08, frequency: 2.2, volume: 0.15 });
+  }
+
+  // 3. Laser / Zap (High pitch with fast downward sweep)
+  if (e.key === '3') {
+    playNoise({ duration: 0.15, frequency: 1.8, pitchSweep: -1.4, volume: 0.2 });
+  }
+  
+  if (e.key == '4') {
+    playNoise({ duration: 2.0, frequency: 1.0, pitchSweep: -20, volume: 0.4});
+  }
+
+});
