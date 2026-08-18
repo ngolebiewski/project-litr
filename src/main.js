@@ -87,21 +87,12 @@ colors.forEach((color, index) => {
   ctx.fillRect(x, y, width, height);
 
   // 4. Draw Title Text
-  ctx.font = "30px Courier";
-  ctx.fillStyle = "white";
-  // ctx.fillText("Project Litr", 50, 175);
-  ctx.font = "20px Courier";
-  // ctx.fillText("1,2,3,4 to make noise!",10, 210);
-  // ctx.fillText("Arrows to move the rainbow",10,230);
-
   drawText(ctx, "SCORE: 666!", 10, 10, 3, "#ff0");
   drawText(ctx, "1 2 3 4 5 6 7 8 9 0 :", 10, 30, 3, "#f00");
   drawText(ctx, "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?", 10, 50, 2, "#0F0");
   drawText(ctx, "PROJECT LITR", 10, 140, 8, "#FFF");
   drawText(ctx, "1,2,3,4 to make noise!",10, 210,2);
   drawText(ctx, "Arrows to move the rainbow",10,230,2);
-  
-
 }
 
 // Synchronized Game Loop
