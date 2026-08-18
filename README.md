@@ -30,3 +30,25 @@ From https://en.wikisource.org/wiki/The_Prose_Edda_(1916_translation_by_Arthur_G
 2. Makefile to run Python Server.
 3. Audio, generate on the fly, but as it is repeated, generate once and then run as a buffered file, so as not to steal CPU threads/processing from image movement.
 4. https://en.wikipedia.org/wiki/Linear-feedback_shift_register Linear Feedback Shift Register for the noise generator, 'Game Boy' style.
+5. fonts
+
+How to Edit/Customize Glyphs
+
+Octal digits convert directly to 3-bit binary rows:
+
+    7 = 111 (full row)
+    5 = 101 (left & right pixels)
+    2 = 010 (center pixel)
+    0 = 000 (empty row)
+
+For example, the character 'A' (0o25755) breaks down to:
+
+    2 -> 0 1 0
+    5 -> 1 0 1
+    7 -> 1 1 1
+    5 -> 1 0 1
+    5 -> 1 0 1
+
+![Screenshot with bitmap font](screenshots/font_screenshot.png)
+
+Day 0 screenshot. Basic setup and init of audio and bitmap font.  
