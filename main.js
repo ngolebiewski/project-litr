@@ -1,4 +1,15 @@
-import { startArpeggiator } from './audio.js';
+import { bakeAudio, startArpeggiator } from './audio.js';
+
+// 1. Pre-bake audio into memory as soon as the file loads
+bakeAudio();
+
+// 2. Play the pre-baked audio on first click or keypress
+const handleStart = () => startArpeggiator();
+window.addEventListener('click', handleStart, { once: true });
+window.addEventListener('keydown', handleStart, { once: true });
+
+let x = 10;
+let y = 10;
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -16,9 +27,10 @@ rainbow.addColorStop(0.67, "blue");
 rainbow.addColorStop(0.83, "indigo");
 rainbow.addColorStop(1, "violet");
 
+
 // 3. Apply the gradient and draw
 ctx.fillStyle = rainbow;
-ctx.fillRect(10, 10, 150, 100);
+ctx.fillRect(x, y, 150 + x, 100 + y);
 ctx.font = "30px Courier";
 ctx.fillStyle = "white"; // Set text color
 
