@@ -75,13 +75,11 @@ function draw() {
   const rainbow = ctx.createLinearGradient(x, 0, x + width, 0);
 
   // 2. Add standard rainbow color stops (0.0 to 1.0)
-  rainbow.addColorStop(0, "red");
-  rainbow.addColorStop(0.17, "orange");
-  rainbow.addColorStop(0.33, "yellow");
-  rainbow.addColorStop(0.5, "green");
-  rainbow.addColorStop(0.67, "blue");
-  rainbow.addColorStop(0.83, "indigo");
-  rainbow.addColorStop(1, "violet");
+const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+
+colors.forEach((color, index) => {
+  rainbow.addColorStop(index / (colors.length - 1), color);
+});
 
   // 3. Apply gradient and draw moving rectangle
   ctx.fillStyle = rainbow;
