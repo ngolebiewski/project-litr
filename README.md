@@ -52,3 +52,5 @@ For example, the character 'A' (0o25755) breaks down to:
 ![Screenshot with bitmap font](screenshots/font_screenshot.png)
 
 Day 0 screenshot. Basic setup and init of audio and bitmap font.  
+
+6. I wonder if instead of vector graphics, it would be possible to chain together stacked 32bit numbers. perhaps 16bit: 65,535 for unsigned integers. Maybe better if hex base 16 rather than base 10?
