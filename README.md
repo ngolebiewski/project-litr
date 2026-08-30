@@ -5,6 +5,7 @@ Theme: Rainbows and Unicorns
 Constraint: Zipped, this HTML game must be < 13k bytes! That's what makes it fun.
 
 ## Game...
+
 Rainbows...Gulfoss from Norse mythology, the rainbow bridge that takes you to Valhalla.
 
 Litr -> Means colorful (rainbow, see!) in old Norse/Icelandic. Also, Litr was a dwarf (or giant in some readings) that met an untimely demise by a kick from Thor into Baldur's funeral pyre (Thor's brother, he was upset).
@@ -12,7 +13,6 @@ Litr -> Means colorful (rainbow, see!) in old Norse/Icelandic. Also, Litr was a 
 Unicorn -> The nemesis, must invert expectation.
 
 Idea -> Puzzles like Indiana Jones and the Last Crusade's tile scene where you must step on the correct letters/glyphs, or fall to your doom.
-
 
 From https://en.wikisource.org/wiki/The_Prose_Edda_(1916_translation_by_Arthur_Gilchrist_Brodeur)/Gylfaginning
 
@@ -25,7 +25,8 @@ From https://en.wikisource.org/wiki/The_Prose_Edda_(1916_translation_by_Arthur_G
 
 ## Dev log
 
-*GOAL* -> Zero dependency, zero npm install project, use VIM not VSCode.
+_GOAL_ -> Zero dependency, zero npm install project, use VIM not VSCode.
+
 1. Set up canvas and file basics.
 2. Makefile to run Python Server.
 3. Audio, generate on the fly, but as it is repeated, generate once and then run as a buffered file, so as not to steal CPU threads/processing from image movement.
@@ -51,6 +52,11 @@ For example, the character 'A' (0o25755) breaks down to:
 
 ![Screenshot with bitmap font](screenshots/font_screenshot.png)
 
-Day 0 screenshot. Basic setup and init of audio and bitmap font.  
+Day 0 screenshot. Basic setup and init of audio and bitmap font.
 
 6. I wonder if instead of vector graphics, it would be possible to chain together stacked 32bit numbers. perhaps 16bit: 65,535 for unsigned integers. Maybe better if hex base 16 rather than base 10?
+
+08/29
+
+- Thinking that this would be a top-down view, vertical game presentation, so I worked on setting up the canvas in a portrait view, tyring to mane it still render well across devices
+- Also, moved around the origin of the player character and drew a grid. Do we eventually get to grid-like movement?

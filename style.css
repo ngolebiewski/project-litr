@@ -1,3 +1,24 @@
+html {
+  touch-action: none;
+}
 body {
-  background-color: #131313;
+  margin: 0;
+  height: 100dvh;
+  background: #111;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+#game {
+  aspect-ratio: 180/360;
+  height: min(100dvh, 200vw);
+  width: auto;
+  display: block;
+}
+/* laptop and wider: cap at 50% viewport width (height=2*width, so 100vw) */
+@media (min-width: 1024px) {
+  #game {
+    height: min(100dvh, 100vw);
+  }
 }

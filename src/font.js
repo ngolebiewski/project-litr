@@ -28,6 +28,13 @@ export function drawText(ctx, text, x, y, scale = 1, color = "#fff") {
   ctx.fillStyle = color;
   text = text.toUpperCase();
 
+  // Snap to the device pixel grid so glyph pixels stay crisp under a
+  // fractional canvas scale. s = device px per virtual unit.
+  const s = ctx.getTransform().a;
+  const u = Math.round(scale * s) / s;   // integral device px per glyph pixel
+  const bx = Math.round(x * s) / s;
+  const by = Math.round(y * s) / s;
+
   for (let i = 0; i < text.length; i++) {
     const idx = FONT_CHARS.indexOf(text[i]);
     if (idx !== -1) {
@@ -36,10 +43,10 @@ export function drawText(ctx, text, x, y, scale = 1, color = "#fff") {
         // Test bit from top-left (bit 14) to bottom-right (bit 0)
         if ((glyph >> (14 - bit)) & 1) {
           ctx.fillRect(
-            x + (i * 4 + (bit % 3)) * scale, // 3px char width + 1px spacing
-            y + ((bit / 3) | 0) * scale,     // Row offset
-            scale,
-            scale
+            bx + (i * 4 + (bit % 3)) * u, // 3px char width + 1px spacing
+            by + ((bit / 3) | 0) * u,     // Row offset
+            u,
+            u
           );
         }
       }
