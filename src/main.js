@@ -115,6 +115,26 @@ colors.forEach((color, index) => {
   drawText(ctx, "PROJECT LITR", 19, 60, 3, "#FFF");
   drawText(ctx, "1,2,3,4 to make noise!", 10, 300, 1);
   drawText(ctx, "Arrows to move the rainbow", 10, 310, 1);
+
+  drawGrid(60)
+}
+
+function drawGrid(cellSize){
+  ctx.beginPath()
+  ctx.strokeStyle = "#FFF"
+  ctx.lineWidth = 1
+
+  for(let x = 0; x <= VW; x += cellSize){
+    ctx.moveTo(x, 80);
+    ctx.lineTo(x, VH-40)
+  }
+
+  for(let y = 80; y <= VH - 40; y += cellSize){
+    ctx.moveTo(0, y);
+    ctx.lineTo(VW, y)
+  }
+
+  ctx.stroke()
 }
 
 // Synchronized Game Loop
