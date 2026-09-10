@@ -94,6 +94,7 @@ colors.forEach((color, index) => {
   drawText(ctx, "1,2,3,4 to make noise!",10, 210,2);
   drawText(ctx, "Arrows to move the rainbow",10,230,2);
 }
+let count = 0;
 
 // Synchronized Game Loop
 function gameLoop() {
@@ -102,4 +103,6 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
+//while (true) {
 requestAnimationFrame(gameLoop);
+// }
