@@ -1,5 +1,8 @@
 import { bakeAudio, startArpeggiator, playNoise } from './audio.js';
 import { drawText } from './font.js';
+import Game from './game.js';
+import Scene from './scene.js';
+import Demo from './sceneDemo.js';
 
 // 1. Pre-bake audio into memory on load
 bakeAudio();
@@ -68,6 +71,7 @@ function update() {
   y = Math.max(0, Math.min(canvas.height - height, y));
 }
 
+
 function draw() {
   // Clear frame
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -96,13 +100,19 @@ colors.forEach((color, index) => {
 }
 let count = 0;
 
-// Synchronized Game Loop
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
+function gameLoop(g) {
+  g,update();
+  g.draw();
+  requestAnimationFrame(() => gameLoop(g));
+  }
+
+function main() {
+  const demo = Demo()
+  const g = new Game(canvas, ctx, keys);
+  g.update();
+  g.scene = demo;
+  console.log(g.scene.name)
+  gameLoop(g);
 }
 
-//while (true) {
-requestAnimationFrame(gameLoop);
-// }
+main()
