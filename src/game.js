@@ -1,5 +1,5 @@
 import { drawText } from './font.js';
-import Player from './player.js';
+import Player from './Player.js';
 
 export default class Game {
   constructor(canvas, ctx, keys){
@@ -12,11 +12,11 @@ export default class Game {
 
   update(){
     if (!this.scene){
-      console.log("no scene selected!") //or do default stuff
+      console.log("no scene selected!"); //or do default stuff
       drawText(this.ctx, "PROJECT LITR", 10, 140, 8, "#444");
       return;
     }
-      this.scene._update(this)
+      this.scene._update(this);
   }
 
   draw(){

@@ -9,9 +9,9 @@ function init(){
 }
 
 function update(game){
-  const p = game.player
-  const keys = game.keys
-  const canvas = game.canvas
+  const p = game.player;
+  const keys = game.keys;
+  const canvas = game.canvas;
   
   if (keys.ArrowUp)    p.y -= p.speed;  
   if (keys.ArrowDown)  p.y += p.speed;

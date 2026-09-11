@@ -8,6 +8,6 @@ export default class Scene{
   }
 
   _update(game){
-    this.update? this.update(game) : console.error("!")
+    this.update? this.update(game) : console.error("!");
   }
 }
