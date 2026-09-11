@@ -1,7 +1,7 @@
 import { bakeAudio, startArpeggiator, playNoise } from './audio.js';
 import { drawText } from './font.js';
-import Game from './game.js';
-import Scene from './scene.js';
+import Game from './Game.js';
+import Scene from './Scene.js';
 import Demo from './sceneDemo.js';
 
 // 1. Pre-bake audio into memory on load
@@ -60,48 +60,8 @@ window.addEventListener('keyup', (e) => {
   }
 });
 
-function update() {
-  if (keys.ArrowUp)    y -= speed;
-  if (keys.ArrowDown)  y += speed;
-  if (keys.ArrowLeft)  x -= speed;
-  if (keys.ArrowRight) x += speed;
-
-  // Keep player within canvas boundaries
-  x = Math.max(0, Math.min(canvas.width - width, x));
-  y = Math.max(0, Math.min(canvas.height - height, y));
-}
-
-
-function draw() {
-  // Clear frame
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // 1. Create a linear gradient relative to rect's current position
-  const rainbow = ctx.createLinearGradient(x, 0, x + width, 0);
-
-  // 2. Add standard rainbow color stops (0.0 to 1.0)
-const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
-
-colors.forEach((color, index) => {
-  rainbow.addColorStop(index / (colors.length - 1), color);
-});
-
-  // 3. Apply gradient and draw moving rectangle
-  ctx.fillStyle = rainbow;
-  ctx.fillRect(x, y, width, height);
-
-  // 4. Draw Title Text
-  drawText(ctx, "SCORE: 666!", 10, 10, 3, "#ff0");
-  drawText(ctx, "1 2 3 4 5 6 7 8 9 0 :", 10, 30, 3, "#f00");
-  drawText(ctx, "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?:", 10, 50, 2, "#0F0");
-  drawText(ctx, "PROJECT LITR", 10, 140, 8, "#FFF");
-  drawText(ctx, "1,2,3,4 to make noise!",10, 210,2);
-  drawText(ctx, "Arrows to move the rainbow",10,230,2);
-}
-let count = 0;
-
 function gameLoop(g) {
-  g,update();
+  g.update();
   g.draw();
   requestAnimationFrame(() => gameLoop(g));
   }

@@ -6,4 +6,8 @@ export default class Scene{
     this.update = update;
     this.draw = draw;
   }
+
+  _update(game){
+    this.update? this.update(game) : console.error("!")
+  }
 }
